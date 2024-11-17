@@ -5,10 +5,20 @@ import matplotlib.pyplot as plt
 import arabic_reshaper
 from bidi.algorithm import get_display
 
-with open('bb.txt', "r", encoding="utf-8") as file:
-    text = file.read()
+# بارگذاری فایل HTML
+html_file_path = "example.html"  # مسیر فایل HTML را جایگزین کنید
+
+with open(html_file_path, "r", encoding="utf-8") as file:
+    soup = BeautifulSoup(file, "html.parser")
+
+# استخراج تمام متن‌ها از div با کلاس "text"
+texts = [div.get_text(strip=True) for div in soup.find_all("div", class_="text")]
+
+# ترکیب همه متن‌ها در یک رشته
+combined_text = " ".join(texts)
+
 # حذف کاراکترهای غیرمجاز (فقط حروف فارسی و اعداد مجاز)
-cleaned_text = re.sub(r"[^آ-ی۰-۹a-zA-Z ]", " ", text)
+cleaned_text = re.sub(r"[^آ-ی۰-۹a-zA-Z ]", " ", combined_text)
 
 # بازسازی و معکوس‌کردن متن فارسی
 reshaped_text = arabic_reshaper.reshape(cleaned_text)  # بازسازی
