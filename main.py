@@ -26,6 +26,8 @@ else:
 
     # ترکیب همه متن‌ها در یک رشته
     combined_text = " ".join(texts)
+    with open(os.path.join(html_files_dir, 'allText.txt'), 'w', encoding='utf-8') as file:
+        file.write(combined_text)
 
 # حذف کاراکترهای غیرمجاز (فقط حروف فارسی)
 cleaned_text = re.sub("[^آ-ی ]", " ", combined_text)
