@@ -23,7 +23,9 @@ cleaned_text = re.sub(r"[^آ-ی۰-۹a-zA-Z ]", " ", combined_text)
 # بازسازی و معکوس‌کردن متن فارسی
 reshaped_text = arabic_reshaper.reshape(cleaned_text)  # بازسازی
 bidi_text = get_display(reshaped_text)  # معکوس‌کردن
-stop_words = ["میکنم", "من", "تو" , 'برای' , 'شاید' , 'داره' ,  'حتما' , 'باشه' , 'امشب']
+stopwords_file_path = "persianST.txt"  # مسیر فایل کلمات ایست
+with open(stopwords_file_path, "r", encoding="utf-8") as file:
+    stop_words = set(file.read().splitlines())  # کلمات را به مجموعه تبدیل می‌کنیم
 
 # تولید ابر کلمات
 wordcloud = WordCloud(
